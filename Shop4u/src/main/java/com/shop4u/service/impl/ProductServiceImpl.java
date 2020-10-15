@@ -64,8 +64,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductDTO> getAllProduct() {
-		List<Product> lst = ProductDAO.getAllProduct();
+	public List<ProductDTO> getAllProduct(String key,String value,int begin,int max) {
+		List<Product> lst = ProductDAO.getAllProduct(key,value,begin,max);
 		List<ProductDTO> result = new ArrayList<ProductDTO>();
 		for (Product item : lst) {
 			
@@ -78,6 +78,11 @@ public class ProductServiceImpl implements ProductService {
 			result.add(x);
 		}
 		return result;
+	}
+	
+	@Override
+	public long getTotalRecords() {		
+		return ProductDAO.getTotalRecords();
 	}
 
 }

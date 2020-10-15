@@ -107,7 +107,7 @@ public class CartContronller {
 	
 	@RequestMapping(value = "home/danh-sach-san-pham",method = RequestMethod.GET)
 	public ModelAndView DanhSanhSanPham(HttpServletRequest request) {		
-		List<ProductDTO> list = productService.getAllProduct();
+		List<ProductDTO> list = productService.getAllProduct(null,null,0,10);
 		request.setAttribute("listProduc",list);	
 		request.setAttribute("title", "Danh sach san pham");
 		return new ModelAndView("web/Product/list");

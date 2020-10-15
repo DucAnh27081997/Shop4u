@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,8 +24,27 @@ public class RestProductController {
 	@RequestMapping(value = "/Product", method = RequestMethod.GET)
 	@ResponseBody
 	public List<ProductDTO> getAllProduct() {
-		List<ProductDTO> lstProduct = productService.getAllProduct();
+		List<ProductDTO> lstProduct = productService.getAllProduct(null,null,0,10);
 		return lstProduct;
+	}
+	
+	@RequestMapping(value = "/ProductByParameters", method = RequestMethod.POST)
+	@ResponseBody
+	public List<ProductDTO> ProductByParameters(@RequestParam(value = "key") String key,@RequestParam(value = "value") String value,
+			@RequestParam(value = "begin") int begin,
+			@RequestParam(value = "max") int max) {
+		List<ProductDTO> lstProduct = productService.getAllProduct(key,value,begin,max);
+		return lstProduct;
+	}
+	
+	@RequestMapping(value = "/getTotalRecords", method = RequestMethod.GET)
+	@ResponseBody
+	public BaseData getTotalRecords() {		
+		List<ProductDTO> lstProduct = productService.getAllProduct(null,null,0,10);
+		BaseData map = new BaseData();
+		map.setLst(lstProduct);
+		map.setLenght(productService.getTotalRecords());
+		return map;
 	}
 
 	@RequestMapping(value = "/Product/{id}", method = RequestMethod.GET)
@@ -73,5 +93,22 @@ public class RestProductController {
 			return "fail: " + e.getMessage();
 		}
 	}
+}
 
+class BaseData{
+	private List<ProductDTO> lst;
+	private long lenght;
+	public List<ProductDTO> getLst() {
+		return lst;
+	}
+	public void setLst(List<ProductDTO> lst) {
+		this.lst = lst;
+	}
+	public long getLenght() {
+		return lenght;
+	}
+	public void setLenght(long lenght) {
+		this.lenght = lenght;
+	}
+	
 }

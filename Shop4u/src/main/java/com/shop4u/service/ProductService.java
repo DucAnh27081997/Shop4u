@@ -10,5 +10,7 @@ public interface ProductService {
 
 	public ProductDTO getProductById(int id);
 
-	public java.util.List<ProductDTO> getAllProduct();
+	public java.util.List<ProductDTO> getAllProduct(String key,String value,int begin,int max);
+	
+	public long getTotalRecords();
 }

@@ -14,4 +14,9 @@ public class ProductController {
 		request.setAttribute("title","danh sach san pham");
 		return new ModelAndView("admin/Product/list");
 	}
+	@RequestMapping(value = "/danh-sach-bai-test")
+	public ModelAndView listTest(HttpServletRequest request) {
+		request.setAttribute("title","danh sach bai test");
+		return new ModelAndView("admin/Test/listTest");
+	}
 }
